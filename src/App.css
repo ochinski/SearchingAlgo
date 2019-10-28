@@ -20,3 +20,15 @@
 .App-link {
   color: #09d3ac;
 }
+
+ul {
+  margin:0px;
+  padding:0px;
+  list-style: none;
+}
+
+button {
+  background-color: white;
+  color:black;
+  width:100px;
+}
