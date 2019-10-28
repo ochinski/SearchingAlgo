@@ -9,7 +9,7 @@ function Header() {
           <li>
             <button>
             Algo
-            </button>
+            </button >
           </li>
           <li>
           <button>
@@ -24,6 +24,11 @@ function Header() {
           <li>
             <button>
             goal
+            </button>
+          </li>
+          <li>
+            <button onClick={(e) => {clear}}>
+            clear
             </button>
           </li>
         </ul>

@@ -1,0 +1,12 @@
+#node {
+  width:20px;
+  height:20px;
+  border:1px solid gray;
+  cursor: pointer;
+}
+.emptyNode {
+  background-color: #fff;
+}
+.blockNode {
+  background-color:#B2D8D8;
+}

@@ -1,5 +1,7 @@
 #grid {
-  width:100%;
-  height:calc(100vw - 50px);
+  /* width:100%; */
+  /* height:calc(100vw - 50px); */
   background-color: seashell;
+  display:flex;
+  flex-wrap: wrap;
 }
