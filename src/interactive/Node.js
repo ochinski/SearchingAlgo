@@ -6,21 +6,28 @@ export default class Node extends React.Component {
     super(props);
     this.state = {
       node : 0,
+      isWall : this.props.isWall
     }
   }
-  nodeClick = (e) => {
-    console.log('clicked');
-    if (this.state.node === 0) {
-      this.setState({
-        node : 1
-      })
-    }
+  HandleMouseEnter = () => {
+    this.props.onMouseEnter(this.props.row, this.props.col);
+  }
+  HandleMouseDown = () => {
+    this.props.onMouseDown(this.props.row, this.props.col);
+  }
+  HandleMouseUp = () => {
+    this.props.onMouseUp();
   }
   render() {
     return (
-      <div id="node" class={this.state.node ? 'blockNode' : 'emptyNode'} onClick={this.nodeClick}>
-        {this.state.node}
+      <div id="node" className={this.props.isWall ? 'isWall' : ''}
+        onMouseEnter={this.HandleMouseEnter}
+        onMouseDown={this.HandleMouseDown}
+        onMouseUp={this.HandleMouseUp}
+      >
       </div>
     );
   }
 }
+
+// this.state.node ? 'blockNode' : 'emptyNode' 
