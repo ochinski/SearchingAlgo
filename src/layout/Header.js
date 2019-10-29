@@ -1,7 +1,7 @@
 import React from 'react';
 import './header.css';
 
-function Header() {
+function Header(props) {
   return (
     <header className="App">
       <nav>
@@ -27,7 +27,7 @@ function Header() {
             </button>
           </li>
           <li>
-            <button onClick={(e) => {clear}}>
+            <button>
             clear
             </button>
           </li>

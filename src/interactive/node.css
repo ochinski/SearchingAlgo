@@ -3,6 +3,7 @@
   height:20px;
   border:1px solid gray;
   cursor: pointer;
+  margin:auto;
 }
 .emptyNode {
   background-color: #fff;
