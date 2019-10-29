@@ -1,7 +1,8 @@
 import React from 'react';
 import './header.css';
 
-function Header(props) {
+
+const Header = (props) => {
   return (
     <header className="App">
       <nav>
@@ -12,17 +13,29 @@ function Header(props) {
             </button >
           </li>
           <li>
-          <button>
+          <button
+            onClick={props.HandleButtonClick}
+            name="isStartSelected"
+            className={props.isStartSelected ? 'selected' : ''}
+          >
             start
             </button>
           </li>
           <li>
-          <button>
+          <button
+            onClick={props.HandleButtonClick}
+            name="isBlockSelected"
+            className={props.isBlockSelected ? 'selected' : ''}
+          >
             block
             </button>
           </li>
           <li>
-            <button>
+            <button
+              onClick={props.HandleButtonClick}
+              name="isEndSelected"
+              className={props.isEndSelected ? 'selected' : ''}
+            >
             goal
             </button>
           </li>
