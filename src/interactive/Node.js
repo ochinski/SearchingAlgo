@@ -4,10 +4,6 @@ import './node.css';
 export default class Node extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      node : 0,
-      isWall : this.props.isWall
-    }
   }
   HandleMouseEnter = () => {
     this.props.onMouseEnter(this.props.row, this.props.col);
@@ -18,9 +14,15 @@ export default class Node extends React.Component {
   HandleMouseUp = () => {
     this.props.onMouseUp();
   }
+  GenerateClass = () => {
+    var className = this.props.isWall ? 'isWall' : '';
+    className += this.props.isStart ? 'isStart' : '';
+    className += this.props.isEnd ? 'isEnd' : '';
+    return className
+  }
   render() {
     return (
-      <div id="node" className={this.props.isWall ? 'isWall' : ''}
+      <div className={"node " + this.GenerateClass()}
         onMouseEnter={this.HandleMouseEnter}
         onMouseDown={this.HandleMouseDown}
         onMouseUp={this.HandleMouseUp}

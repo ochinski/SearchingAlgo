@@ -10,7 +10,8 @@ export default class App extends React.Component {
     super();
     this.state = {
       isStartSelected : false,
-      isEndSelected : false
+      isEndSelected : false,
+      isClearSelected : false,
     }
   }
   HandleButtonClick = event => {
@@ -20,6 +21,12 @@ export default class App extends React.Component {
     if (event.target.name === "isEndSelected" && this.state.isStartSelected === false) {
       this.setState({isEndSelected : !this.state.isEndSelected});
     }
+    if (event.target.name === "isClearSelected" && this.state.isClearSelected === false) {
+      this.setState({isClearSelected : !this.state.isClearSelected});
+    }
+  }
+  SetClear = () => {
+    this.setState({isClearSelected : false})
   }
   render() {
     return (
@@ -29,9 +36,14 @@ export default class App extends React.Component {
             HandleButtonClick = {this.HandleButtonClick}
             isStartSelected = {this.state.isStartSelected}
             isEndSelected = {this.state.isEndSelected}
+            isClearSelected = {this.state.isClearSelected}
           />
         </React.Fragment>
         <PathFinderGrid 
+          isClearSelected = {this.state.isClearSelected}
+          SetClear = {this.SetClear}
+          isStartSelected = {this.state.isStartSelected}
+          isEndSelected = {this.state.isEndSelected}
           nodeSize = {30}
         />
       </div>

@@ -40,7 +40,10 @@ const Header = (props) => {
             </button>
           </li>
           <li>
-            <button>
+            <button
+            onClick={props.HandleButtonClick}
+            name="isClearSelected"
+            >
             clear
             </button>
           </li>
