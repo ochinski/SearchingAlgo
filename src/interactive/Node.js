@@ -27,6 +27,7 @@ export default class Node extends React.Component {
         onMouseDown={this.HandleMouseDown}
         onMouseUp={this.HandleMouseUp}
       >
+        r{this.props.row},c{this.props.col}
       </div>
     );
   }

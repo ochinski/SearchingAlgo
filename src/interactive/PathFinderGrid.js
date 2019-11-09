@@ -1,5 +1,8 @@
 import React from 'react';
+
 import Node from './Node.js';
+import AStart from '../algo/astar.js';
+
 import './pathFinderGrid.css';
 
 export default class PathFinderGrid extends React.Component {
@@ -16,10 +19,12 @@ export default class PathFinderGrid extends React.Component {
     const whNodes =  [Math.trunc(screenWidth / nodeSize),Math.trunc(screenHieght / nodeSize)];
 
     // begin creating the 2D array representing the grid
-    for (let row = 0; row < whNodes[0]; row++) { 
+    // for (let row = 0; row < whNodes[0]; row++) { 
+      for (let row = 0; row < 5; row++) { 
       const newRow = []; // initialize 1D array
-      for (let col = 0; col < whNodes[1]; col++) {
-        newRow.push(createNode(col,row)); // initalize 2D array
+      // for (let col = 0; col < whNodes[1]; col++) {
+        for (let col = 0; col < 5; col++) {
+        newRow.push(createNode(row,col)); // initalize 2D array
       }
       newNodeArray.push(newRow); // push into newNodeArray
     } 
@@ -28,16 +33,31 @@ export default class PathFinderGrid extends React.Component {
       nodeArray : newNodeArray,
       isMouseDown : false,
       isStartSet : false,
+      isStart : {
+        row : null,
+        col : null
+      },
       isEndSet : false,
+      isEnd : {
+        row : null,
+        col : null
+      },
       isGoalSet : false,
       isClear : true,
     }
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.isClear + " " + this.props.isClearSelected);
     if (this.props.isClearSelected !== prevProps.isClearSelected && !this.state.isClear) {
       this.GenerateNewGrid();
       this.props.SetClear();
+    }
+    if (this.props.isStartSearch !== prevProps.isStartSearch && this.state.isStartSet && this.state.isEndSet) {
+      var GirdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
+      if (GirdPathfinding === false){
+        console.log('failed')
+      } else {
+        this.setState({nodeArray : GirdPathfinding})
+      }
     }
   }
   HandleMouseEnter = (row,col) => {
@@ -59,17 +79,28 @@ export default class PathFinderGrid extends React.Component {
     }
     if (this.props.isStartSelected && !this.state.isStartSet) {
       const newNodeArray = nodeArrayWithStart(this.state.nodeArray,row,col)
+      let startNode = {
+        row : row,
+        col : col
+      }
       this.setState({
         nodeArray : newNodeArray, 
         isMouseDown : true,
-        isStartSet : true
+        isStartSet : true,
+        isStart : startNode
+        
       })
     } else if (this.props.isEndSelected && !this.state.isEndSet) {
       const newNodeArray = nodeArrayWithEnd(this.state.nodeArray,row,col)
+      let endNode = {
+        row : row,
+        col : col
+      }
       this.setState({
         nodeArray : newNodeArray, 
         isMouseDown : true,
-        isEndSet : true
+        isEndSet : true,
+        isEnd : endNode,
       })
     } else {
       const newNodeArray = nodeArrayWithWalls(this.state.nodeArray,row,col)
@@ -91,15 +122,26 @@ export default class PathFinderGrid extends React.Component {
     const whNodes =  [Math.trunc(screenWidth / nodeSize),Math.trunc(screenHieght / nodeSize)];
 
     // begin creating the 2D array representing the grid
-    for (let row = 0; row < whNodes[0]; row++) { 
-      const newRow = []; // initialize 1D array
-      for (let col = 0; col < whNodes[1]; col++) {
-        newRow.push(createNode(col,row)); // initalize 2D array
+    // for (let row = 0; row < whNodes[0]; row++) { 
+    for (let row = 0; row < 5; row++) { 
+      // initialize 1D array
+      const newRow = []; 
+      // for (let col = 0; col < whNodes[1]; col++) {
+      for (let col = 0; col < 5; col++) {
+        // initalize 2D array
+        newRow.push(createNode(row,col)); 
       }
-      newNodeArray.push(newRow); // push into newNodeArray
+      // push into newNodeArray
+      newNodeArray.push(newRow); 
     } 
     this.setState(
-      {nodeArray : newNodeArray, isClear : true}
+      {
+        nodeArray : newNodeArray,
+        isClear : true, 
+        isStartSet : false,
+        isEndSet: false,
+        isGoalSet : false
+      }
     );
   }
   DisplayNodes = () => {
@@ -139,10 +181,10 @@ export default class PathFinderGrid extends React.Component {
   }
 }
 
-const createNode = (col, row) => {
+const createNode = (row, col) => {
   return {
-    col,
     row,
+    col,
     isStart : false,
     isEnd : false,
     isWall : false,

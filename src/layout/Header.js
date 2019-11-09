@@ -47,6 +47,14 @@ const Header = (props) => {
             clear
             </button>
           </li>
+          <li>
+            <button
+            onClick={props.HandleButtonClick}
+            name="isStartSearch"
+            >
+            Start Search
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
