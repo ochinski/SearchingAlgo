@@ -15,6 +15,7 @@ export default class App extends React.Component {
       isStartSearch: false,
     }
   }
+  
   HandleButtonClick = event => {
     if (event.target.name === "isStartSelected" && this.state.isEndSelected === false) {
       this.setState({isStartSelected : !this.state.isStartSelected});
@@ -29,9 +30,11 @@ export default class App extends React.Component {
       this.setState({isStartSearch : !this.state.isStartSearch});
     }
   }
+
   SetClear = () => {
     this.setState({isClearSelected : false})
   }
+  
   render() {
     return (
       <div className="App">
