@@ -19,18 +19,20 @@ export default class Node extends React.Component {
     className += this.props.isStart ? 'isStart' : '';
     className += this.props.isEnd ? 'isEnd' : '';
     className += this.props.isPath ? ' isPath' : '';
-    // className += this.props.openSet ? ' openSet' : '';
-    // className += this.props.closedSet ? ' closedSet' : '';
+    className += this.props.openSet ? ' openSet' : '';
+    className += this.props.closedSet ? ' closedSet' : '';
     return className
   }
   render() {
-    var aniStyle = null;
-    var counter = this.props.counter + 50;
-    if (this.props.openSet == true) {
-      aniStyle = 'transition: background-color ' + {counter} + 'ms linear;';
-    }
+    // var delay = '';
+    //  if ( this.props.closedSet == true || this.props.openSet == true) {
+    //   delay = this.props.counter_closedSet * 50 + "ms";
+    // } else if (this.props.isPath == true) {
+    //   delay = this.props.counter_Path * 100 + "ms";
+    // }
+    //style={{transitionDelay:delay }} 
     return (
-      <div   className={"node " + this.GenerateClass()}
+      <div  className={"node " + this.GenerateClass()}
         onMouseEnter={this.HandleMouseEnter}
         onMouseDown={this.HandleMouseDown}
         onMouseUp={this.HandleMouseUp}

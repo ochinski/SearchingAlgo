@@ -53,7 +53,8 @@ export default class PathFinderGrid extends React.Component {
       var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
       if (girdPathfinding.length === 0){
       } else {
-        this.GeneratePathGrid(girdPathfinding[0])
+        // this.GeneratePathGrid(girdPathfinding[0])
+        this.AnimateAstar(girdPathfinding);
       }
     }
   }
@@ -110,7 +111,29 @@ export default class PathFinderGrid extends React.Component {
       })
     }
   }
+  DelaySetState = (i, curNodeArray,newNodeArray,lastNode,path) => {
+    setTimeout(
+      function () {
+        curNodeArray[newNodeArray[i].row][newNodeArray[i].col].closedSet = true;
+        this.setState({nodeArray : curNodeArray})
+        if ((i + 1) == lastNode) {
+          this.GeneratePathGrid(path)
+        }
+      }
+      .bind(this),
+      60 * i
+      );  
+  }
+  AnimateAstar = (girdPathfinding) => {
+    const newNodeArray = girdPathfinding[2][0];
+    const curNodeArray = this.state.nodeArray;
+    var newNode = null;
 
+    for (var i = 0; i < newNodeArray.length; i++) {
+      this.DelaySetState(i,curNodeArray,newNodeArray,newNodeArray.length,girdPathfinding[0]);
+    }
+    
+  }
   GeneratePathGrid = (aStarPath) => {
     const newNodeArray = [];
     const nodeSize = this.state.nodeSize;
@@ -174,20 +197,33 @@ export default class PathFinderGrid extends React.Component {
 
   DisplayNodes = () => {
       const {nodeArray} = this.state; // get the node array from state
-      var counter = 0;
+      var counter_openset = 0;
+      var counter_closedSet = 0;
+      var counter_path = 0;
       // console.log('final: ', nodeArray);
       return (
         <div id="grid">
           {nodeArray.map((rowMap, rowIdx) => {
-            counter++;
+            
             return (
               <div class="row">
-                {rowMap.map((node,nodeIdx) => {
-                  counter++;
+                {rowMap.map((node,nIndex) => {
                   const {row,col, isStart, isEnd, isWall, isPath,openSet, closedSet} = node;
+                  if (openSet) {
+                    counter_openset++;
+                  }
+                  if (closedSet){
+                    counter_closedSet++;
+                  }
+                  if (isPath){
+                    counter_path++;
+                  }
                   return (
                     <Node
-                      counter = {counter}
+                      counter_openset = {counter_openset}
+                      counter_closedSet = {counter_closedSet}
+                      counter_path = {counter_path}
+                      index={nIndex}
                       openSet = {openSet}
                       closedSet = {closedSet}
                       isPath = {isPath}

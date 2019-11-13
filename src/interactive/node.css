@@ -1,6 +1,6 @@
 .node {
-  width:20px;
-  height:20px;
+  width:30px;
+  height:30px;
   border:1px solid gray;
   cursor: pointer;
   user-select: none; /* supported by Chrome and Opera */
@@ -9,21 +9,26 @@
   background-color: #FF0;
 }
 .closedSet {
-  background-color: #03fc30;
-  transition: background-color 500ms linear;
+  background-color: #A393BF;
+  /* background-color: #03fc30; */
+  /* transition: background-color 500ms linear; */
 }
 .isPath { 
-  background-color: teal;
-  transition: background-color 500ms linear;
+  /* background-color: #B2D8D8; */
+  background-color: #73648A;
+  
+  /* transition: background-color 500ms linear; */
 }
 .isStart {
-  background-color:greenyellow!important;
+  background-color:#68EDC6!important;
 }
 .isEnd { 
-  background-color: #354040;
+  background-color: red;
 }
 .isWall {
-  background-color:#B2D8D8;
+  /* background-color:teal; */
+  background-color:#0C0910;
+  
 }
 .emptyNode {
   background-color: #fff;

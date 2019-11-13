@@ -45,6 +45,7 @@ function createAStarNode (grid,row,col,end) {
   };
   return newNode;
 }
+
 export default function AStart (newGrid,newStart,newEnd) {
 
 	var grid = newGrid;
@@ -93,11 +94,11 @@ export default function AStart (newGrid,newStart,newEnd) {
 
 		removeElmFromArray(openSet,currentNode);
 		// setTimeout(function(){
-			grid[currentNode.row][currentNode.col].openSet = false;
-			grid[currentNode.row][currentNode.col].closedSet = true;
+			// grid[currentNode.row][currentNode.col].openSet = false;
+			// grid[currentNode.row][currentNode.col].closedSet = true;
 		// }, 500);
 		closeSet.push(currentNode);
-		masterClosedSet.push(closeSet);
+
 		// setTimeout(function(){
 		for (var i = 0; i < currentNode.neighbors.length; i++) {
 			if (!currentNode.neighbors[i].isWall) {
@@ -110,7 +111,7 @@ export default function AStart (newGrid,newStart,newEnd) {
 					} else {
 						
 							currentNode.neighbors[i].g = tmpG;
-							currentNode.neighbors[i].openSet = true;
+							// currentNode.neighbors[i].openSet = true;
 							openSet.push(currentNode.neighbors[i]);
 							masterOpenSet.push(openSet);
 						
@@ -137,6 +138,7 @@ export default function AStart (newGrid,newStart,newEnd) {
 			break;
 		}
 	}
+	masterClosedSet.push(closeSet);
 	allPaths[1] = masterOpenSet;
 	allPaths[2] = masterClosedSet;
 	return allPaths;
