@@ -52,7 +52,7 @@ export default class App extends React.Component {
           isStartSelected = {this.state.isStartSelected}
           isEndSelected = {this.state.isEndSelected}
           isStartSearch = {this.state.isStartSearch}
-          nodeSize = {50}
+          nodeSize = {20}
         />
       </div>
     );

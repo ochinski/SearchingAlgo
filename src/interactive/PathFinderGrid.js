@@ -17,9 +17,9 @@ export default class PathFinderGrid extends React.Component {
 
     // get max amount of nodes based on node size
     const whNodes =  [Math.trunc(screenWidth / nodeSize),Math.trunc(screenHieght / nodeSize)];
-    for (let row = 0; row < 8; row++) { 
+    for (let row = 0; row < whNodes[1]; row++) { 
       var newRow = []; // initialize 1D array
-      for (let col = 0; col < 8; col++) {
+      for (let col = 0; col < whNodes[0]; col++) {
         newRow.push(createNode(row,col)); // initalize 2D array
       }
       newNodeArray.push(newRow); // push into newNodeArray
@@ -53,7 +53,7 @@ export default class PathFinderGrid extends React.Component {
       var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
       if (girdPathfinding.length === 0){
       } else {
-        this.GeneratePathGrid(girdPathfinding)
+        this.GeneratePathGrid(girdPathfinding[0])
       }
     }
   }
@@ -114,9 +114,17 @@ export default class PathFinderGrid extends React.Component {
   GeneratePathGrid = (aStarPath) => {
     const newNodeArray = [];
     const nodeSize = this.state.nodeSize;
-    for (let row = 0; row < 8; row++) { 
+      // get window inner hieght + width based on browser size (onstart) and remove 50px from height due to header
+      let screenWidth = window.innerWidth - 120;
+      let screenHieght = window.innerHeight - 90;
+  
+      // get max amount of nodes based on node size
+      const whNodes =  [Math.trunc(screenWidth / nodeSize),Math.trunc(screenHieght / nodeSize)];
+
+        
+    for (let row = 0; row < whNodes[1]; row++) { 
       const newRow = []; 
-      for (let col = 0; col < 8; col++) {
+      for (let col = 0; col < whNodes[0]; col++) {
         let tmpNode = this.state.nodeArray[row][col];
         for (let i = 0;  i < aStarPath.length; i++) {
           if (aStarPath[i].row === row && aStarPath[i].col === col) {
@@ -145,9 +153,9 @@ export default class PathFinderGrid extends React.Component {
     // get max amount of nodes based on node size
     const whNodes =  [Math.trunc(screenWidth / nodeSize),Math.trunc(screenHieght / nodeSize)];
 
-    for (let row = 0; row < 8; row++) { 
+    for (let row = 0; row < whNodes[1]; row++) { 
       const newRow = []; 
-      for (let col = 0; col < 8; col++) {
+      for (let col = 0; col < whNodes[0]; col++) {
         newRow.push(createNode(row,col)); 
       }
       // push into newNodeArray
@@ -166,19 +174,22 @@ export default class PathFinderGrid extends React.Component {
 
   DisplayNodes = () => {
       const {nodeArray} = this.state; // get the node array from state
-      console.log('final: ', nodeArray);
+      var counter = 0;
+      // console.log('final: ', nodeArray);
       return (
         <div id="grid">
           {nodeArray.map((rowMap, rowIdx) => {
+            counter++;
             return (
               <div class="row">
                 {rowMap.map((node,nodeIdx) => {
-                  const {row,col, isStart, isEnd, isWall, isPath,f,g,h} = node;
+                  counter++;
+                  const {row,col, isStart, isEnd, isWall, isPath,openSet, closedSet} = node;
                   return (
                     <Node
-                      h = {h}
-                      f = {f}
-                      g = {g}
+                      counter = {counter}
+                      openSet = {openSet}
+                      closedSet = {closedSet}
                       isPath = {isPath}
                       isWall = {isWall}
                       isStart = {isStart}
@@ -215,6 +226,8 @@ const createNode = (row, col) => {
     isEnd : false,
     isWall : false,
     isPath : false,
+    openSet : false,
+    closedSet : false,
   }
 }
 
