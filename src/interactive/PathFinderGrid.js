@@ -2,6 +2,7 @@ import React from 'react';
 
 import Node from './Node.js';
 import AStart from '../algo/astar.js';
+import Dijkstra from '../algo/dijkstra.js';
 
 import './pathFinderGrid.css';
 
@@ -50,11 +51,13 @@ export default class PathFinderGrid extends React.Component {
       this.props.SetClear();
     }
     if (this.props.isStartSearch !== prevProps.isStartSearch && this.state.isStartSet && this.state.isEndSet) {
-      var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
+      // var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
+      var girdPathfinding = Dijkstra(this.state.nodeArray,this.state.isStart);
       if (girdPathfinding.length === 0){
       } else {
         // this.GeneratePathGrid(girdPathfinding[0])
-        this.AnimateAstar(girdPathfinding);
+        this.GeneratePathGrid(girdPathfinding)
+        // this.AnimateAstar(girdPathfinding);
       }
     }
   }
@@ -208,7 +211,7 @@ export default class PathFinderGrid extends React.Component {
             return (
               <div class="row">
                 {rowMap.map((node,nIndex) => {
-                  const {row,col, isStart, isEnd, isWall, isPath,openSet, closedSet} = node;
+                  const {row,col, isStart, isEnd, isWall, isPath,openSet, closedSet,dist} = node;
                   if (openSet) {
                     counter_openset++;
                   }
@@ -220,6 +223,7 @@ export default class PathFinderGrid extends React.Component {
                   }
                   return (
                     <Node
+                      dist = {dist}
                       counter_openset = {counter_openset}
                       counter_closedSet = {counter_closedSet}
                       counter_path = {counter_path}
