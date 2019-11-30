@@ -1,4 +1,5 @@
-Visual Pathfinding algoryth build in react
+Visual Pathfinding Algorithm 
+*build in react*
 
 *Under Development*
 
