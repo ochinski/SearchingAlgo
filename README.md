@@ -13,6 +13,6 @@ In development:
 - UI/UX develop
   - Current interaction's are placeholders
 
-How to view:
+Usage:
 
 Click to enable button, click again to disable button and use another. Place Start block, place end block, press start. 
