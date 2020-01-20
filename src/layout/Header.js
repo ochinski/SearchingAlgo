@@ -1,16 +1,16 @@
 import React from 'react';
 import './header.css';
 
-
 const Header = (props) => {
   return (
     <header className="App">
       <nav>
         <ul>
           <li>
-            <button>
-            Algo
-            </button >
+            <select onChange={props.HandleAlgoChange}>
+              <option selected="selected" value = "astar">A Star</option>
+              <option value = "dijkstra">Dijkstra</option>
+            </select>
           </li>
           <li>
           <button

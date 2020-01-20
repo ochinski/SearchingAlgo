@@ -24,13 +24,6 @@ export default class Node extends React.Component {
     return className
   }
   render() {
-    // var delay = '';
-    //  if ( this.props.closedSet == true || this.props.openSet == true) {
-    //   delay = this.props.counter_closedSet * 50 + "ms";
-    // } else if (this.props.isPath == true) {
-    //   delay = this.props.counter_Path * 100 + "ms";
-    // }
-    //style={{transitionDelay:delay }} 
     return (
       <div  className={"node " + this.GenerateClass()}
         onMouseEnter={this.HandleMouseEnter}

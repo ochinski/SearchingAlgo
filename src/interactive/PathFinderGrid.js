@@ -46,19 +46,22 @@ export default class PathFinderGrid extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.isClearSelected !== prevProps.isClearSelected && !this.state.isClear) {
+    if (this.props.action !== prevProps.action && !this.state.isClear && this.props.action === 'clear') {
       this.GenerateNewGrid();
       this.props.SetClear();
     }
-    if (this.props.isStartSearch !== prevProps.isStartSearch && this.state.isStartSet && this.state.isEndSet) {
-      // var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
-      var girdPathfinding = Dijkstra(this.state.nodeArray,this.state.isStart);
-      if (girdPathfinding.length === 0){
-      } else {
-        // this.GeneratePathGrid(girdPathfinding[0])
-        this.GeneratePathGrid(girdPathfinding)
-        // this.AnimateAstar(girdPathfinding);
+    if (this.props.action !== prevProps.action && this.state.isStartSet && this.state.isEndSet && this.props.action === 'search') {
+      if (this.props.algo === "astar") {
+        var girdPathfinding = AStart(this.state.nodeArray,this.state.isStart, this.state.isEnd);
+      } else if (this.props.algo === "dijkstra") {
+        var girdPathfinding = Dijkstra(this.state.nodeArray,this.state.isStart);
       }
+      // if (girdPathfinding.length === 0){
+      // } else {
+        // this.GeneratePathGrid(girdPathfinding[0])
+        // this.GeneratePathGrid(girdPathfinding)
+        this.AnimateAstar(girdPathfinding);
+      // }
     }
   }
 
@@ -81,7 +84,7 @@ export default class PathFinderGrid extends React.Component {
         isClear : false
       })
     }
-    if (this.props.isStartSelected && !this.state.isStartSet) {
+    if (this.props.action === 'start' && !this.state.isStartSet) {
       const newNodeArray = nodeArrayWithStart(this.state.nodeArray,row,col)
       let startNode = {
         row : row,
@@ -94,7 +97,7 @@ export default class PathFinderGrid extends React.Component {
         isStart : startNode
         
       })
-    } else if (this.props.isEndSelected && !this.state.isEndSet) {
+    } else if (this.props.action === 'end' && !this.state.isEndSet) {
       const newNodeArray = nodeArrayWithEnd(this.state.nodeArray,row,col)
       let endNode = {
         row : row,
@@ -114,6 +117,7 @@ export default class PathFinderGrid extends React.Component {
       })
     }
   }
+  
   DelaySetState = (i, curNodeArray,newNodeArray,lastNode,path) => {
     setTimeout(
       function () {
@@ -127,8 +131,10 @@ export default class PathFinderGrid extends React.Component {
       60 * i
       );  
   }
+
   AnimateAstar = (girdPathfinding) => {
     const newNodeArray = girdPathfinding[2][0];
+    console.log(newNodeArray);
     const curNodeArray = this.state.nodeArray;
     var newNode = null;
 
@@ -137,6 +143,7 @@ export default class PathFinderGrid extends React.Component {
     }
     
   }
+
   GeneratePathGrid = (aStarPath) => {
     const newNodeArray = [];
     const nodeSize = this.state.nodeSize;
@@ -312,4 +319,4 @@ const nodeArrayWithWalls = (nodeArray, row, col) => {
     newNodeArray[row][col] = newNode;
     return newNodeArray;
   }
-}
+} 

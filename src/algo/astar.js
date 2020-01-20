@@ -107,11 +107,11 @@ export default function AStart (newGrid,newStart,newEnd) {
 							currentNode.neighbors[i].g = tmpG;
 						}
 					} else {
-						
-							currentNode.neighbors[i].g = tmpG;
-							// currentNode.neighbors[i].openSet = true;
-							openSet.push(currentNode.neighbors[i]);
-							masterOpenSet.push(openSet);
+					
+						currentNode.neighbors[i].g = tmpG;
+						// currentNode.neighbors[i].openSet = true;
+						openSet.push(currentNode.neighbors[i]);
+						masterOpenSet.push(openSet);
 						
 					}
 					currentNode.neighbors[i].h = heuristic(currentNode.neighbors[i],newEnd)
