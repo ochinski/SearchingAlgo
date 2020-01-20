@@ -48,7 +48,7 @@ export default class PathFinderGrid extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.action !== prevProps.action && !this.state.isClear && this.props.action === 'clear') {
       this.GenerateNewGrid();
-      this.props.SetClear();
+      this.props.HasCleared();
     }
     if (this.props.action !== prevProps.action && this.state.isStartSet && this.state.isEndSet && this.props.action === 'search') {
       if (this.props.algo === "astar") {

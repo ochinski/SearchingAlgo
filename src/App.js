@@ -35,6 +35,9 @@ export default class App extends React.Component {
       case 'isEndSelected':
         this.SwitchAction('end');
         break;
+      case 'isBlockSelected':
+        this.SwitchAction('block');
+        break;
       case 'isClearSelected':
         this.SwitchAction('clear');
         break;
@@ -72,8 +75,8 @@ export default class App extends React.Component {
     })
   }
 
-  SetClear = () => {
-    this.setState({isClearSelected : false})
+  HasCleared = () => {
+    this.setState({actionSelected : 'block'})
   }
   
   render() {
@@ -81,6 +84,7 @@ export default class App extends React.Component {
       <div className="App">
         <React.Fragment>
           <Header
+            selected = {this.state.actionSelected}
             HandleAlgoChange = {this.HandleAlgoChange}
             HandleButtonClick = {this.HandleButtonClick}
             isStartSelected = {this.state.isStartSelected}
@@ -92,7 +96,7 @@ export default class App extends React.Component {
           algo = {this.state.algoSelected}
           action = {this.state.actionSelected}
           isClearSelected = {this.state.isClearSelected}
-          SetClear = {this.SetClear}
+          HasCleared = {this.HasCleared}
           isStartSelected = {this.state.isStartSelected}
           isEndSelected = {this.state.isEndSelected}
           isStartSearch = {this.state.isStartSearch}

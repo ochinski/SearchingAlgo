@@ -1,6 +1,26 @@
 import React from 'react';
 import './header.css';
 
+const isSelected = (toCheck,buttonName) => {
+  let selected = false;
+  switch (buttonName){
+    case 'isStartSelected' :
+      if (toCheck === 'start') selected = true;
+      break;
+    case 'isEndSelected':
+      if (toCheck === 'end') selected = true;
+      break;
+    case 'isBlockSelected':
+      if (toCheck === 'block') selected = true;
+      break;
+    case 'isStartSearch':
+      if (toCheck=== 'search')  selected = true;
+      break;
+  }
+  console.log(selected)
+  return selected;
+}
+
 const Header = (props) => {
   return (
     <header className="App">
@@ -16,7 +36,7 @@ const Header = (props) => {
           <button
             onClick={props.HandleButtonClick}
             name="isStartSelected"
-            className={props.isStartSelected ? 'selected' : ''}
+            className={isSelected(props.selected,'isStartSelected') ? 'selected' : ''}
           >
             start
             </button>
@@ -25,7 +45,7 @@ const Header = (props) => {
           <button
             onClick={props.HandleButtonClick}
             name="isBlockSelected"
-            className={props.isBlockSelected ? 'selected' : ''}
+            className={isSelected(props.selected,'isBlockSelected') ? 'selected' : ''}
           >
             block
             </button>
@@ -34,7 +54,7 @@ const Header = (props) => {
             <button
               onClick={props.HandleButtonClick}
               name="isEndSelected"
-              className={props.isEndSelected ? 'selected' : ''}
+              className={isSelected(props.selected,'isEndSelected') ? 'selected' : ''}
             >
             goal
             </button>
@@ -51,6 +71,7 @@ const Header = (props) => {
             <button
             onClick={props.HandleButtonClick}
             name="isStartSearch"
+            className={isSelected(props.selected,'isStartSearch') ? 'selected' : ''}
             >
             Start Search
             </button>
